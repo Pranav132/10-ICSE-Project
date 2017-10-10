@@ -1,5 +1,3 @@
-package TENICSEPROJECT;
-
 import java.util.*;
 
 class Auction_game{
@@ -94,39 +92,19 @@ class Auction_game{
         // player can bid on it and the comp wont go above the fixed amoutn
         // if the player outbids the comp he gets the item
         // if the comp outbids the player he doesnt get the item
+        String items[]={"x"," Painting",  "Vintage flute" , "Vinyl CDs", "Autographed football" , "Tires", "Desk lamp", "Headphones", "Book of poems", "Lego set", "Pillows", "Silver Ring", "Exotic tea bags", "Body length mirror", "Sunglasses"," Watch", "Perfume","Crystal vase", "Miniature Buddha", "Bedspread", "Cricket Bat"};
+        int costs[] = {4,15000,5500, 2200, 4000, 6000, 550, 699, 350, 999, 425, 18500, 1200,7725, 799, 2325, 600, 1250,799, 400, 975};
         String itemsbelow1k[] = {"x", "Desk Lamp", "Keyboard", "Book of poems", "Minature Buddha" , "Perfume"};
         int costs1k[] = {4, 660, 750, 699, 999, 450};
         String itemsbw2and5k[] = {"x", "Vinyl CDs", "Autographed Football", "Body length mirror", "Backpack", "Extra Large Lego Set"};
         int costs2k[]= {4, 2250, 4425, 3750, 2499, 3500};
         String items10k[] = {"x", "Car Tires", "RC Drone", "PSP", "HD Monitor", "Crystal Vase"};
         int costs10k[] ={4, 7999, 6500, 5999, 8750, 9999};
-        String items20k[] = {"x", "High Quality Painting", "Silver Ring"};
-        int costs20k[] = {4, 17500, 14500};
-        int auctionitemcost = 0;
-        String auctionitem = "";
-        if(bal >= 1000){
-            int random = (int)( Math.random() * 5 + 1);
-            auctionitem = itemsbelow1k[random];
-            auctionitemcost = costs1k[random];
-        }
-        else if(bal >= 2500 && bal<5000){
-            int random = (int)( Math.random() * 5 + 1);
-            auctionitem = itemsbw2and5k[random];
-            auctionitemcost = costs2k[random];
-        }
-        else if(bal >= 5000 && bal<10000){
-            int random = (int)( Math.random() * 5 + 1);
-            auctionitem = items10k[random];
-            auctionitemcost = costs10k[random];
-        }
-        else if(bal >= 10000 && bal<20000){
-            int random = (int)( Math.random() * 2 + 1);
-            auctionitem = itemsbw2and5k[random];
-            auctionitemcost = costs2k[random];
-        }
-        int random = (int)( Math.random() * 5 + 1);
-        String auctionitemshuffle = shuffle(auctionitem);
-        System.out.println("The anagram of the item in auction is " + auctionitemshuffle);
+        int random = (int)( Math.random() * 20 + 1);
+        String auctionitem = items[random];
+        int auctionitemcost = costs[random];
+        auctionitem = shuffle(auctionitem);
+        System.out.println("The anagram of the item in auction is " + auctionitem);
 
         while (flag == true){
             System.out.println("If you want to continue with this auction, type 1. If you want to leave and go back to the menu, type 2.");
@@ -144,13 +122,13 @@ class Auction_game{
                     Menu();
                 }
                 else{
-                    if(bid > auctionitemcost){
+                    if(bid > costs[random]){
                         System.out.println("You have won the auction ");
                         bal = bal - bid;
                         for (int i = 0; i < inventory.length; i++){
                             if (inventory[i]== ""){
-                                inventory[i] = auctionitem;
-                                System.out.println("The item you have won is " + auctionitem);
+                                inventory[i] = items[random];
+                                System.out.println("The item you have won is " + items[random]);
                                 flag = false;
                                 Menu();
                                 break;
@@ -165,7 +143,7 @@ class Auction_game{
                         if (counterbid > bid){
                             System.out.println(" You have been outbid by a bid of " + counterbid);
                             if(counterbid > bal){
-                                System.out.println("This item is too costly for you at this point. Try selling items from your inventory. You will be removed from this auction. Please join another one.");
+                                System.out.println("This item is too costly for you at this point. You will be removed from this auction. Please join another one.");
                                 flag = false;
                                 Menu();
                             }
@@ -182,7 +160,7 @@ class Auction_game{
         }
     }
 
-    static String shuffle (String auctionitem){
+    static String shuffle(String auctionitem){
         String shuffledvalue = ""; 
         while (auctionitem.length() != 0)
         {
@@ -224,6 +202,7 @@ class Auction_game{
 
             case 1:
             call_inventory();
+
             break;
             case 2:
             Menu();
