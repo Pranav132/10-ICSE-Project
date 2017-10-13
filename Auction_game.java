@@ -4,6 +4,7 @@ class Auction_game{
     static Scanner sc = new Scanner(System.in);
     static double bal = 1000.0;
     static String inventory[] = {"","","","",""};
+    static int inventorycost[]={0,0,0,0,0};
     public static void main(String args [])
     {
         System.out.println("Welcome to the game. Please enter your name");
@@ -142,6 +143,7 @@ class Auction_game{
                         for (int i = 0; i < inventory.length; i++){
                             if (inventory[i]== ""){
                                 inventory[i] = auctionitem;
+                                inventorycost[i]=auctionitemcost;
                                 System.out.println("The item you have won is " + auctionitem);
                                 flag = false;
                                 Menu();
@@ -190,8 +192,23 @@ class Auction_game{
     static void call_sell_items()
     {
         System.out.println("Welcome to the item selling menu. Over here, you can either sell an item for a fixed amout, or auction an item for a random amount.");   
-        System.out.println( " The auction has a greater risk as you can lose money, but you can also gain more.");               
+        System.out.println( " The auction has a greater risk as you can lose money, but you can also gain more."); 
+        System.out.println( "You currently have in your inventory:"); 
+        for (int i = 0; i < 5; i ++){
+            if (inventory[i] == ""){
+                break;
+            }
+            else{
+                System.out.println(i+1 + ")" + inventory[i]);
+            }
+        }
+        System.out.println("Type the number of the item you want to sell or auction");
+        int choicesell = sc.nextInt();
+        
+            
+        
     } 
+    
 
     static void call_inventory()
     {
