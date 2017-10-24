@@ -117,7 +117,7 @@ class Auction_game{
             auctionitemcost = costs10k[random];
         }
         shuffledauctionitem = shuffle(auctionitem);
-        System.out.println("The anagram of the item in auction is " + shuffledauctionitem);
+        System.out.println("The anagram of the item in auction is '" + shuffledauctionitem + "'");
 
         int bid = 0;
 
@@ -128,9 +128,10 @@ class Auction_game{
             switch (auctionstayorleave){
                 case 1:
 
-                System.out.println("How much do you want to bid? Bids are incremented");
+                System.out.println("Your current bid is " + bid + ". How much more do you want to bid?");
                 int sum = sc.nextInt();
                 bid += sum;
+                System.out.println("Your bid is now " + bid);
                 int counterbid, r;
                 if (bid > bal){
                     System.out.println("Do not have enough money");
@@ -193,7 +194,7 @@ class Auction_game{
 
     static void call_sell_items()
     {
-        System.out.println("Welcome to the item selling menu. Over here, you can either sell an item for a fixed amout, or auction an item for a random amount.");   
+        System.out.println("Welcome to the item selling menu. Over here, you can either sell an item for a fixed amount, or auction an item for a random amount.");   
         System.out.println( " The auction has a greater risk as you can lose money, but you can also gain more."); 
         System.out.println( "You currently have in your inventory:"); 
         for (int i = 0; i < 5; i ++){
@@ -203,96 +204,132 @@ class Auction_game{
         }
         int aucbid = 0;
         int liveab = 0;
-        System.out.println("Type the number of the item you want to sell or auction");
-        int cs = sc.nextInt() -1;
         boolean eh = true;
         while(eh == true){
-            String csitem = inventory[cs];
-            int cscost = inventorycost[cs];
-            if (csitem == ""){
-                System.out.println("No item in that slot");
-            }
-            else{
+            System.out.println("Type 1 to continue seling items, type 2 to go back to the menu");
+            int ehc = sc.nextInt();
+            switch(ehc){
+                case 1:
+                System.out.println("Type the number of the item you want to sell or auction");
+                int cs = sc.nextInt() -1;
 
-                int cssp = (int) (cscost + Math.random() * cscost);
-                System.out.println("The price for selling this item at this point in time is " + cssp);
-                System.out.println("You can come back at a later date for a different price, or you can sell the item at this rate now");
-                System.out.println("You can also put this item on the auction block");
-                boolean bool = true;
-                while (bool == true){
-                    System.out.println("Enter 1 for selling, 2 for auction, 3 for coming back later");
-                    int sch = sc.nextInt();
-                    if(sch == 1){
-                        inventory[cs] = "";
-                        bal += cssp;
-                        System.out.println("Item has been sold and your balance is now " + bal);
-                        Menu();
-                        break;
-
-                    }
-                    else if(sch == 2){
-                        aucbid = (int)(Math.random()*cscost);
-                        liveab = (int)((Math.random() * aucbid)- 50);
-                        System.out.println("Item " + csitem + "is up for auction with a starting bid of " + liveab);
-                        System.out.println("Does anyone want to bid?");
-                        System.out.println("Person in the back raises his hand up");
-                        System.out.println("Does anyone else want to counterbid?");
-                        liveab+=(int)(Math.random() * (aucbid - liveab));
-
-
-                    }
-                    else if (sch == 3){
-                        System.out.println("Going back to menu now");
-                        Menu();
-                        break;
-                    }
-                    else{
-                        System.out.println("Invalid output");
-                        bool = true;
-                    }
-
-                }
-                eh = false;
-            }
-        }
-    } 
-
-    static void call_inventory()
-    {
-
-        System.out.println("Welcome to the inventory");   
-        System.out.println("You currently have in your inventory:");
-        if(inventory [0] == ""){
-            System.out.println("Nothing currently. Please purchase something from an auction");
-        }
-        else{
-            for (int i = 0; i < 5; i ++){
-                if (inventory[i] != ""){
-                    System.out.println(inventory[i]);
+                String csitem = inventory[cs];
+                int cscost = inventorycost[cs];
+                if (csitem == ""){
+                    System.out.println("No item in that slot");
                 }
                 else{
-                    break;
-                }         
+
+                    int cssp = (int) (cscost + (Math.random() * cscost));
+                    System.out.println("The price for selling this item at this point in time is " + cssp);
+                    System.out.println("You can come back at a later date for a different price, or you can sell the item at this rate now");
+                    System.out.println("You can also put this item on the auction block");
+                    boolean bool = true;
+                    while (bool == true){
+                        System.out.println("Enter 1 for selling, 2 for auction, 3 for coming back later");
+                        int sch = sc.nextInt();
+                        if(sch == 1){
+                            inventory[cs] = "";
+                            bal += cssp;
+                            System.out.println("Item has been sold and your balance is now " + bal);
+                            Menu();
+                            break;
+
+                        }
+                        else if(sch == 2){
+                            aucbid = (int)(Math.random()*cscost);
+                            liveab = (int)((Math.random() * aucbid)- 50);
+                            System.out.println("Item " + csitem + "is up for auction with a starting bid of " + liveab);
+                            System.out.println("Does anyone want to bid?");
+                            System.out.println("<i>Person in the back raises his hand up<i>");
+                            System.out.println("Does anyone else want to counterbid?");
+                            liveab+=(int)(Math.random() * (aucbid - liveab));
+                            System.out.println("The new bid is now " + liveab);
+                            int liveabgoing = (int)(Math.random() * 2);
+                            for (int q = 1; q <= liveabgoing; q++){
+                                if (q == 1){
+                                    System.out.println ("Going once");
+                                    System.out.println("Does anyone else want to bid?");
+                                }
+                                else{
+                                    System.out.println ("Going twice");
+                                    System.out.println("Does anyone else want to bid?");
+                                }
+                            }
+                            System.out.println("<i>Person in the back raises his hand up<i>");
+                            liveab = aucbid;
+                            System.out.println("The new bid is now " + liveab);
+                            System.out.println ("Going once");
+                            System.out.println("Does anyone else want to bid?");
+                            System.out.println ("Going twice");
+                            System.out.println("Does anyone else want to bid?");
+                            System.out.println("Going thrice");
+                            System.out.println("Sold for " + liveab);
+                            inventory[cs] = "";
+                            bal += cssp;
+                            System.out.println("Item has been sold and your balance is now " + bal);
+                            Menu();
+                            break;
+
+                        }
+                        else if (sch == 3){
+                            System.out.println("Going back to menu now");
+                            Menu();
+                            break;
+                        }
+                        else{
+                            System.out.println("Invalid output");
+                            bool = true;
+                        }
+
+                    }
+                    eh = false;
+                }
+                break; 
+                case 2: 
+                Menu();
+                eh = false;
+                break;
             }
-        }
-        System.out.println("Your balance is " + bal);
-        System.out.println("To go through your inventory again, type 1. To go back to the menu, type 2");
-        int invloop = sc.nextInt();
-        switch(invloop){
-
-            case 1:
-            call_inventory();
-
-            break;
-            case 2:
-            Menu();
-            break;
-        }
+        } 
     }
 
-    static void call_quit()
-    {
+        static void call_inventory()
+        {
 
-        System.out.println("Game over. The program is closing now.");             
-    }               
-}
+            System.out.println("Welcome to the inventory");   
+            System.out.println("You currently have in your inventory:");
+            if(inventory [0] == ""){
+                System.out.println("Nothing currently. Please purchase something from an auction");
+            }
+            else{
+                for (int i = 0; i < 5; i ++){
+                    if (inventory[i] != ""){
+                        System.out.println(inventory[i]);
+                    }
+                    else{
+                        break;
+                    }         
+                }
+            }
+            System.out.println("Your balance is " + bal);
+            System.out.println("To go through your inventory again, type 1. To go back to the menu, type 2");
+            int invloop = sc.nextInt();
+            switch(invloop){
+
+                case 1:
+                call_inventory();
+
+                break;
+                case 2:
+                Menu();
+                break;
+            }
+        }
+
+        static void call_quit()
+        {
+
+            System.out.println("Game over. The program is closing now.");             
+        }               
+    }
