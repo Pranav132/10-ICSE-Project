@@ -71,17 +71,8 @@ class Auction_game{
         System.out.println("Once you have won an item, it will be stored in your inventory. You can keep a maximum of 5 items at a time.");
         System.out.println("You can either sell the item, for a fixed amount, or you can auction the item you have bought. The amount of money you receive from the auction is not fixed.");
         System.out.println("If your balance goes above 20000 rupees, you have won the game. If your balance goes below 200 rupees, and you have no item in your inventory, you have lost the game. ");
-        System.out.println("To read the rules again, type 1. To go back to the menu, type 2");
-        int rulesloop = sc.nextInt();
-        switch(rulesloop){
-
-            case 1:
-            call_rules();
-            break;
-            case 2:
-            Menu();
-            break;
-        }
+        System.out.println("You will be returned to the menu");
+        Menu();
     }
 
     static void call_auction()
@@ -104,11 +95,11 @@ class Auction_game{
         String items10k[] = {"x", "Car Tires", "RC Drone", "PSP", "HD Monitor", "Crystal Vase"};
         int costs10k[] ={4, 7999, 6500, 5999, 8750, 9999};
         int random = (int)( Math.random() * 5 + 1);
-        if (bal <= 1000){
+        if (bal <= 3500){
             auctionitem = itemsbelow1k[random];
             auctionitemcost = costs1k[random];
         }  
-        else if (bal >=2000 && bal <= 5000){
+        else if (bal >=3501 && bal <= 7500){
             auctionitem = itemsbw2and5k[random];
             auctionitemcost = costs2k[random];
         }
@@ -238,12 +229,14 @@ class Auction_game{
                         }
                         else if(sch == 2){
                             aucbid = (int)(Math.random()*cscost);
-                            liveab = (int)((Math.random() * aucbid)- 50);
+                            liveab = (int)((Math.random() * aucbid));
+                            System.out.println("Aucbid: " + aucbid);
                             System.out.println("Item " + csitem + "is up for auction with a starting bid of " + liveab);
                             System.out.println("Does anyone want to bid?");
-                            System.out.println("<i>Person in the back raises his hand up<i>");
+                            System.out.println("Person in the back raises his hand up");
                             System.out.println("Does anyone else want to counterbid?");
-                            liveab+=(int)(Math.random() * (aucbid - liveab));
+                            int arrat=(int)(Math.random() * (aucbid - liveab));
+                            liveab += arrat;
                             System.out.println("The new bid is now " + liveab);
                             int liveabgoing = (int)(Math.random() * 2);
                             for (int q = 1; q <= liveabgoing; q++){
@@ -256,7 +249,7 @@ class Auction_game{
                                     System.out.println("Does anyone else want to bid?");
                                 }
                             }
-                            System.out.println("<i>Person in the back raises his hand up<i>");
+                            System.out.println("Person in the back raises his hand up");
                             liveab = aucbid;
                             System.out.println("The new bid is now " + liveab);
                             System.out.println ("Going once");
@@ -294,42 +287,27 @@ class Auction_game{
         } 
     }
 
-        static void call_inventory()
-        {
+    static void call_inventory()
+    {
 
-            System.out.println("Welcome to the inventory");   
-            System.out.println("You currently have in your inventory:");
-            if(inventory [0] == ""){
-                System.out.println("Nothing currently. Please purchase something from an auction");
-            }
-            else{
-                for (int i = 0; i < 5; i ++){
-                    if (inventory[i] != ""){
-                        System.out.println(inventory[i]);
-                    }
-                    else{
-                        break;
-                    }         
-                }
-            }
-            System.out.println("Your balance is " + bal);
-            System.out.println("To go through your inventory again, type 1. To go back to the menu, type 2");
-            int invloop = sc.nextInt();
-            switch(invloop){
+        System.out.println("Welcome to the inventory");   
+        System.out.println("You currently have in your inventory:");
 
-                case 1:
-                call_inventory();
+        System.out.println( "You currently have in your inventory:"); 
+        for (int i = 0; i < 5; i ++){
 
-                break;
-                case 2:
-                Menu();
-                break;
-            }
+            System.out.println(i+1 + ")" + inventory[i]);
+
         }
 
-        static void call_quit()
-        {
-
-            System.out.println("Game over. The program is closing now.");             
-        }               
+        System.out.println("Your balance is " + bal);
+        System.out.println("You will be returned to the menu now");
+        Menu();
     }
+
+    static void call_quit()
+    {
+
+        System.out.println("Game over. The program is closing now.");             
+    }               
+}
