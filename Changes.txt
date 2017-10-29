@@ -1,0 +1,13 @@
+When I have nothing in the inventory show that I have nothing. Not list 5 empty items
+
+Again if I wnat to sell wihtout anything in my inventory say so.
+
+Do a time out if you can. What if the user chooses no option
+
+Explain about the anagram
+
+Add a line saying since its blind item...you will know what you won after the bid
+
+Same list only the items we have won.. refine the number of the item I want to sell
+
+So refine the statement about being thrown out of the auction
