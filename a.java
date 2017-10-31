@@ -10,15 +10,22 @@ class a{
         System.out.println("Remember, a space is also counted as a character");
         String shuffledauctionitem = "Pranav Iyengar";
         for(int i = 0; i<shuffledauctionitem.length(); i++){
-            System.out.print(i + 1 + " ");
+            if (i<9){
+                System.out.print("0"+(i + 1) + " ");
+            }
+            else{
+                System.out.print(i + 1 + " ");
+            }
         }
         System.out.println();
         for (int a = 0; a<shuffledauctionitem.length();a++){
-            System.out.print(shuffledauctionitem.charAt(a) + " ");
+
+            System.out.print(shuffledauctionitem.charAt(a) + "  " );
+
         }
         System.out.println();
         for(int i = 0; i<shuffledauctionitem.length(); i++){
-            System.out.print("_ ");
+            System.out.print("_  ");
         }
     }
 }

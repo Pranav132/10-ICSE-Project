@@ -16,6 +16,9 @@ class Auction_game{
 
     static void Menu()
     {
+        System.out.println();
+        System.out.println();
+        System.out.println();
         System.out.println("Welcome to the main menu");
         System.out.println("You can - ");
         System.out.println("1)read about the rules");
@@ -209,27 +212,8 @@ class Auction_game{
         return shuffledvalue;
     }
 
-    static String anagramsolving(String shuffledauctionitem){
-        System.out.println("You will now begin to try and figure out the name of the item that is being auctioned");
-        System.out.println("To choose the letter you want place, type it's corresponding number");
-        System.out.println("After that, type the position of where you want to place the number");
-        System.out.println("A few clues:");
-        System.out.println("Capital letters will always be at the start of words");
-        System.out.println("The number of spaces in the shuffled phrase will determine the number of words in the name of the item.");
-        System.out.println("Remember, a space is also counted as a character");
-        
-        for(int i = 0; i<shuffledauctionitem.length(); i++){
-            System.out.print(i + 1 + " ");
-        }
-        System.out.println();
-        for (int a = 0; a<shuffledauctionitem.length();a++){
-            System.out.print(shuffledauctionitem.charAt(a) + " ");
-        }
-        System.out.println();
-        for(int i = 0; i<shuffledauctionitem.length(); i++){
-            System.out.print("_ ");
-        }
-        
+    static void anagramsolving(String shuffledauctionitem){
+      
     }
 
     static void call_sell_items()
@@ -291,36 +275,9 @@ class Auction_game{
 
                             }
                             else if(sch == 2){
-                                aucbid = (int)((Math.random() * cscost ) + (Math.random()*cscost));
-                                liveab = (int)((Math.random() * aucbid));
-                                System.out.println("Aucbid: " + aucbid);
-                                System.out.println("Item " + csitem + "is up for auction with a starting bid of " + liveab);
-                                System.out.println("Does anyone want to bid?");
-                                System.out.println("Person in the back raises his hand up");
-                                System.out.println("Does anyone else want to counterbid?");
-                                int arrat=(int)(Math.random() * (aucbid - liveab));
-                                liveab += arrat;
-                                System.out.println("The new bid is now " + liveab);
-                                int liveabgoing = (int)(Math.random() * 2);
-                                for (int q = 1; q <= liveabgoing; q++){
-                                    if (q == 1){
-                                        System.out.println ("Going once");
-                                        System.out.println("Does anyone else want to bid?");
-                                    }
-                                    else{
-                                        System.out.println ("Going twice");
-                                        System.out.println("Does anyone else want to bid?");
-                                    }
-                                }
-                                System.out.println("Person in the back raises his hand up");
-                                liveab = aucbid;
-                                System.out.println("The new bid is now " + liveab);
-                                System.out.println ("Going once");
-                                System.out.println("Does anyone else want to bid?");
-                                System.out.println ("Going twice");
-                                System.out.println("Does anyone else want to bid?");
-                                System.out.println("Going thrice");
-                                System.out.println("Sold for " + liveab);
+                                aucbid = (int)((Math.random() * cscost) + (Math.random() * cscost));
+
+                                System.out.println("The item sold for " + aucbid);
                                 inventory[cs] = "";
                                 bal += aucbid;
                                 System.out.println("Item has been sold and your balance is now " + bal);
