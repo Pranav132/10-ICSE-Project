@@ -124,78 +124,72 @@ class Auction_game{
         }
         shuffledauctionitem = shuffle(auctionitem);
         System.out.println("The anagram of the item in auction is '" + shuffledauctionitem + "'. The item you have won will be revealed to you after the auction.");
+        double minimumrandom = Math.random();
+        int minimumbid = (int)((Math.random()  * auctionitemcost) * minimumrandom);
+        System.out.println("Minimum bid is " + minimumbid);
 
         int bid = 0;
         int counterbid = 0 , r;
+        int auctionbid = (int)((Math.random() * auctionitemcost) + (Math.random() * (bal - auctionitemcost)));
 
         while (flag == true){
-            System.out.println("If you want to continue with this auction, type 1. If you want to leave and go back to the menu, type 2.");
-            int auctionstayorleave = sc.nextInt();
-            switch (auctionstayorleave){
-                case 1:
-                System.out.println("Balance is currently " + bal);
-                System.out.println("Your current bid is " + bid + ". How much more do you want to bid?");
-                int sum = sc.nextInt();
-                bid += sum;
-                if(bid != 0 && bid <= counterbid){
-                    System.out.println("Bid cannot be the same as or lower than counterbid. Please try again.");
-                    bid -=sum;
+
+            System.out.println("Balance is currently " + bal);
+            System.out.println("Your current bid is " + bid + ". How much more do you want to bid?");
+            int sum = sc.nextInt();
+            bid += sum;
+            if(bid != 0 && bid <= counterbid || bid < minimumbid){
+                System.out.println("Bid cannot be the same as or lower than counterbid. Neither can it be less than the minimumbid. Please try again.");
+                bid -=sum;
+            }
+            else{
+                System.out.println("Your bid is now " + bid);
+
+                if (bid > bal){
+                    System.out.println("Do not have enough money");
+                    bid-=sum;
+                    flag = true;
                 }
                 else{
-                    System.out.println("Your bid is now " + bid);
-
-                    if (bid > bal){
-                        System.out.println("Do not have enough money");
-                        bid-=sum;
-                        flag = true;
+                    if(bid >= auctionbid){
+                        System.out.println("You have won the auction ");
+                        bal = bal - bid;
+                        for (int i = 0; i < inventory.length; i++){
+                            if (inventory[i]== ""){
+                                inventory[i] = auctionitem;
+                                inventorycost[i]=auctionitemcost;
+                                System.out.println("The item you have won is " + auctionitem);
+                                flag = false;
+                                Menu();
+                                break;
+                            }
+                        }
                     }
                     else{
-                        if(bid >= auctionitemcost){
-                            System.out.println("You have won the auction ");
-                            bal = bal - bid;
-                            for (int i = 0; i < inventory.length; i++){
-                                if (inventory[i]== ""){
-                                    inventory[i] = auctionitem;
-                                    inventorycost[i]=auctionitemcost;
-                                    System.out.println("The item you have won is " + auctionitem);
-                                    flag = false;
-                                    Menu();
-                                    break;
-                                }
-                            }
+                        counterbid = (int)( bid + (Math.random() * (auctionbid - bid)) );
+                        if(counterbid == auctionbid){
+                            counterbid-=2;
                         }
-                        else{
-                            counterbid = (int)( bid + (Math.random() * (auctionitemcost - bid)) );
-                            if(counterbid == auctionitemcost){
-                                counterbid-=2;
+                        if(counterbid == bid){
+                            if (counterbid<auctionbid){
+                                counterbid = counterbid + 1;
                             }
-                            if(counterbid == bid){
-                                if (counterbid<auctionitemcost){
-                                    counterbid = counterbid + 1;
-                                }
-                                System.out.println("You have been outbid by a bid of " + counterbid);
+                            System.out.println("You have been outbid by a bid of " + counterbid);
 
+                        }
+                        else if (counterbid > bid){
+                            System.out.println(" You have been outbid by a bid of " + counterbid);
+                            if(counterbid > bal){
+                                System.out.println("This item is too costly for you at this point as you do not have enough balance. ");
+                                System.out.println(" You will be removed from the auction. Please sell something if you can before joining again. ");
+                                flag = false;
+                                Menu();
                             }
-                            else if (counterbid > bid){
-                                System.out.println(" You have been outbid by a bid of " + counterbid);
-                                if(counterbid > bal){
-                                    System.out.println("This item is too costly for you at this point as you do not have enough balance. ");
-                                    System.out.println(" You will be removed from the auction. Please sell something if you can before joining again. ");
-                                    flag = false;
-                                    Menu();
-                                }
-                            }
-
                         }
 
                     }
-                }
-                break;
-                case 2:
-                Menu();
-                flag = false;
-                break;
 
+                }
             }
         }
     }
@@ -213,14 +207,12 @@ class Auction_game{
     }
 
     static void anagramsolving(String shuffledauctionitem){
-      
+
     }
 
     static void call_sell_items()
 
     {
-        System.out.println("Welcome to the item selling menu. Over here, you can either sell an item for a fixed amount, or auction an item for a random amount.");   
-        System.out.println( " The auction has a greater risk as you can lose money, but you can also gain more."); 
 
         int sellcount = 0;
         for (int i = 0; i < 5; i ++){
@@ -230,10 +222,13 @@ class Auction_game{
             }
         }
         if (sellcount == 5){
-            System.out.println("You have nothing in your inventory. You will be returned to the menu.");
+            System.out.println("You have nothing in your inventory. You will be returned to the menu. PLease buy something from an auction");
             Menu();
         }
         else{
+            System.out.println("Welcome to the item selling menu. Over here, you can either sell an item for a fixed amount, or auction an item for a random amount.");   
+            System.out.println( " The auction has a greater risk as you can lose money, but you can also gain more."); 
+
             System.out.println( "You currently have in your inventory:"); 
             for (int i = 0; i < 5; i ++){
 
@@ -244,74 +239,66 @@ class Auction_game{
             int liveab = 0;
             boolean eh = true;
             while(eh == true){
-                System.out.println("Type 1 to continue selling items, type 2 to go back to the menu");
-                int ehc = sc.nextInt();
-                switch(ehc){
-                    case 1:
-                    System.out.println("Choose the item you want to sell or auction by choosing it's corresponding number.");
-                    int cs = sc.nextInt() -1;
 
-                    String csitem = inventory[cs];
-                    int cscost = inventorycost[cs];
-                    if (csitem == ""){
-                        System.out.println("No item in that slot");
-                    }
-                    else{
+                System.out.println("Choose the item you want to sell or auction by choosing it's corresponding number.");
+                int cs = sc.nextInt() -1;
 
-                        int cssp = (int) ((Math.random() * cscost) + (Math.random() * cscost));
-                        System.out.println("The price for selling this item at this point in time is " + cssp);
-                        System.out.println("You can come back at a later date for a different price, or you can sell the item at this rate now");
-                        System.out.println("You can also put this item on the auction block");
-                        boolean bool = true;
-                        while (bool == true){
-                            System.out.println("Enter 1 for selling, 2 for auction, 3 for coming back later");
-                            int sch = sc.nextInt();
-                            if(sch == 1){
-                                inventory[cs] = "";
-                                bal += cssp;
-                                System.out.println("Item has been sold and your balance is now " + bal);
-                                Menu();
-                                break;
+                String csitem = inventory[cs];
+                int cscost = inventorycost[cs];
+                if (csitem == ""){
+                    System.out.println("No item in that slot");
+                }
+                else{
 
-                            }
-                            else if(sch == 2){
-                                aucbid = (int)((Math.random() * cscost) + (Math.random() * cscost));
-
-                                System.out.println("The item sold for " + aucbid);
-                                inventory[cs] = "";
-                                bal += aucbid;
-                                System.out.println("Item has been sold and your balance is now " + bal);
-                                Menu();
-                                break;
-
-                            }
-                            else if (sch == 3){
-                                System.out.println("Going back to menu now");
-                                Menu();
-                                break;
-                            }
-                            else{
-                                System.out.println("Invalid output");
-                                bool = true;
-                            }
+                    int cssp = (int) ((Math.random() * cscost) + (Math.random() * cscost));
+                    System.out.println("The price for selling this item at this point in time is " + cssp);
+                    System.out.println("You can come back at a later date for a different price, or you can sell the item at this rate now");
+                    System.out.println("You can also put this item on the auction block");
+                    boolean bool = true;
+                    while (bool == true){
+                        System.out.println("Enter 1 for selling, 2 for auction, 3 for coming back later");
+                        int sch = sc.nextInt();
+                        if(sch == 1){
+                            inventory[cs] = "";
+                            bal += cssp;
+                            System.out.println("Item has been sold and your balance is now " + bal);
+                            Menu();
+                            break;
 
                         }
-                        eh = false;
+                        else if(sch == 2){
+                            aucbid = (int)((Math.random() * cscost) + (Math.random() * cscost));
+
+                            System.out.println("The item sold for " + aucbid);
+                            inventory[cs] = "";
+                            bal += aucbid;
+                            System.out.println("Item has been sold and your balance is now " + bal);
+                            Menu();
+                            break;
+
+                        }
+                        else if (sch == 3){
+                            System.out.println("Going back to menu now");
+                            Menu();
+                            break;
+                        }
+                        else{
+                            System.out.println("Invalid output");
+                            bool = true;
+                        }
+
                     }
-                    break; 
-                    case 2: 
-                    Menu();
                     eh = false;
-                    break;
                 }
+
             }
         }
     }
 
     static void call_inventory()
     {
+        System.out.println("Welcome to the inventory"); 
 
-        System.out.println("Welcome to the inventory");   
         int invcount = 0;
         for (int i = 0; i < 5; i ++){
 
@@ -324,6 +311,7 @@ class Auction_game{
             System.out.println("Your balance is " + bal);
             Menu();
         }
+
         else{
             System.out.println( "You currently have in your inventory:"); 
             for (int i = 0; i < 5; i ++){
