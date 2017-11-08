@@ -125,7 +125,7 @@ class Auction_game{
         shuffledauctionitem = shuffle(auctionitem);
         System.out.println("The anagram of the item in auction is '" + shuffledauctionitem + "'. The item you have won will be revealed to you after the auction.");
         double minimumrandom = Math.random();
-        int minimumbid = (int)((Math.random()  * auctionitemcost) * minimumrandom);
+        int minimumbid = (int)((Math.random()  * auctionitemcost));
         System.out.println("Minimum bid is " + minimumbid);
 
         int bid = 0;
