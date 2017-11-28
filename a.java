@@ -64,21 +64,63 @@ class a {
         }
         System.out.println();
         System.out.println();
-        
-        System.out.println("Enter 1 for choosing letter from anagram, enter 2 for letter from the solution");
 
-        while(true){
-            System.out.println("Enter the corresponding number of the letter you want to move from the anagram");
-            System.out.println("or enter the corresponding number of the letter you want to send back to it's place in the anagram. ");
-            int r = sc.nextInt();
-            if (sch.charAt(r - 1) == '~'){
-                System.out.println("Character has already been placed.");
-                // || scr.charAt(r - 1) == '_'
-            }
-            else{
+        System.out.println("Enter 1 for choosing letter from anagram, enter 2 for letter from the solution,enter 3 to stop trying to solve the anagram.");
+        int anac = sc.nextInt();
+        boolean flag1 = true;
+        while(flag1 = true){
+            switch(anac){
+                case 1: 
+                System.out.println("Enter the corresponding number of the letter you want to move from the anagram");
+
+                int r = sc.nextInt();
+                if (sch.charAt(r - 1) == '~'){
+                    System.out.println("Character has already been placed.");
+                    // || scr.charAt(r - 1) == '_'
+                }
+                else{
+                    System.out.println("Enter the corresponding number of the position you want to place the letter in");
+                    int q = sc.nextInt();
+                    if (scr.charAt(q - 1) == '_'){
+                        System.out.println("Character has already been placed.");
+
+                    }
+                    else{
+                        scr.charAt(q-1) = sch.charAt(r-1);
+                        System.out.println("Letter has been shifted.");
+                        flag1 = false;
+                    }
+                }
                 break;
+                case 2:
+                 System.out.println("Enter the corresponding number of the letter you want to move from the solution");
+
+                int l = sc.nextInt();
+                if (scr.charAt(l - 1) == '_'){
+                    System.out.println("No character has in that position.");
+                    // || scr.charAt(r - 1) == '_'
+                }
+                else{
+                    System.out.println("Enter the corresponding number of the position you want to place the letter in");
+                    int s = sc.nextInt();
+                    if (sch.charAt(s - 1) == '~'){
+                        System.out.println("Character has already been placed.");
+
+                    }
+                    else{
+                        sch.charAt(s-1) = scr.charAt(r-1);
+                        System.out.println("Letter has been shifted.");
+                        flag1 = false;
+                    }
+                }
+                break;
+                case 3:
+                System.out.println("You wil be returned to the auction now.");
+                flag1 = false;
+                break;
+                case default:
+                System.out.println("Error");
             }
         }
-
     }
 }
