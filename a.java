@@ -11,6 +11,8 @@ class a {
         System.out.println("Remember, a space is also counted as a character. The spaces have been entered in their correct placed for you. In it's place");
         System.out.println("The characters which have been placed have been replaced by a '~'");
         String shuffledauctionitem = "Penguin Lamp Keyboard";
+        String auctionitem = "Lamp Penguin Keyboard";
+        String scrne = "", schne = "";
         for(int i = 0; i<shuffledauctionitem.length(); i++){
             if (i<9){
                 System.out.print("0"+(i + 1) + " ");
@@ -50,11 +52,11 @@ class a {
         char pp;
         String scr ="";
         for(int i = 0; i<shuffledauctionitem.length(); i++){
-            int cc = shuffledauctionitem.charAt(i);
+            int cc = auctionitem.charAt(i);
 
             if((cc <= 90 && cc >= 65)  || cc == 32){
-                System.out.print(shuffledauctionitem.charAt(i) + "  ");
-                pp  = shuffledauctionitem.charAt(i);
+                System.out.print(auctionitem.charAt(i) + "  ");
+                pp  = auctionitem.charAt(i);
             }
             else{
                 System.out.print("_  ");
@@ -65,7 +67,7 @@ class a {
         System.out.println();
         System.out.println();
 
-        System.out.println("Enter 1 for choosing letter from anagram, enter 2 for letter from the solution,enter 3 to stop trying to solve the anagram.");
+        System.out.println("Enter 1 for choosing letter from anagram, enter 2 for letter from the solution");
         int anac = sc.nextInt();
         boolean flag1 = true;
         while(flag1 = true){
@@ -86,14 +88,15 @@ class a {
 
                     }
                     else{
-                        scr.charAt(q-1) = sch.charAt(r-1);
+                        char j = sch.charAt(r-1);
+                        scr.charAt(q-1) = j;
                         System.out.println("Letter has been shifted.");
                         flag1 = false;
                     }
                 }
                 break;
                 case 2:
-                 System.out.println("Enter the corresponding number of the letter you want to move from the solution");
+                System.out.println("Enter the corresponding number of the letter you want to move from the solution");
 
                 int l = sc.nextInt();
                 if (scr.charAt(l - 1) == '_'){
@@ -114,13 +117,131 @@ class a {
                     }
                 }
                 break;
-                case 3:
-                System.out.println("You wil be returned to the auction now.");
-                flag1 = false;
-                break;
-                case default:
+                default:
                 System.out.println("Error");
+                break;
+            }
+        }
+        boolean flag3 = true;
+        while(flag3 = true){
+            if (scr.equals(auctionitem) == true){
+                System.out.println("You have solved the anagram");
+                flag3 = false;
+                //range
+            }
+            else{
+
+                scr = scrne;
+                sch = schne;
+                
+                for(int i = 0; i<shuffledauctionitem.length(); i++){
+                    if (i<9){
+                        System.out.print("0"+(i + 1) + " ");
+                    }
+                    else{
+                        System.out.print(i + 1 + " ");
+                    }
+                }
+                System.out.println();
+                for (int a = 0; a<shuffledauctionitem.length();a++){
+
+                    int dd = sch.charAt(a);
+
+                    if((dd <= 90 && dd >= 65)  ||dd == 32){
+                        System.out.print("~  ");
+    
+                    }
+                    else{
+                        System.out.print(sch.charAt(a) + "  " );
+
+                    }
+
+                }
+                System.out.println();
+                System.out.println();
+                for(int i = 0; i<shuffledauctionitem.length(); i++){
+                    if (i<9){
+                        System.out.print("0"+(i + 1) + " ");
+                    }
+                    else{
+                        System.out.print(i + 1 + " ");
+                    }
+                }
+                System.out.println();
+
+                for(int i = 0; i<shuffledauctionitem.length(); i++){
+                    int cc = scr.charAt(i);
+
+                    if((cc <= 90 && cc >= 65)  || cc == 32){
+                        System.out.print(scr.charAt(i) + "  ");
+
+                    }
+                    else{
+                        System.out.print("_  ");
+ 
+                    }
+
+                }
+
+
+                System.out.println("Enter 1 for choosing letter from anagram, enter 2 for letter from the solution");
+                int anac1 = sc.nextInt();
+                boolean flag2 = true;
+                while(flag2 = true){
+                    switch(anac1){
+                        case 1: 
+                        System.out.println("Enter the corresponding number of the letter you want to move from the anagram");
+
+                        int r = sc.nextInt();
+                        if (sch.charAt(r - 1) == '~'){
+                            System.out.println("Character has already been placed.");
+                            // || scr.charAt(r - 1) == '_'
+                        }
+                        else{
+                            System.out.println("Enter the corresponding number of the position you want to place the letter in");
+                            int q = sc.nextInt();
+                            if (scr.charAt(q - 1) == '_'){
+                                System.out.println("Character has already been placed.");
+
+                            }
+                            else{
+                                char j = sch.charAt(r-1);
+                                scr.charAt(q-1) = j;
+                                System.out.println("Letter has been shifted.");
+                                flag2 = false;
+                            }
+                        }
+                        break;
+                        case 2:
+                        System.out.println("Enter the corresponding number of the letter you want to move from the solution");
+
+                        int l = sc.nextInt();
+                        if (scr.charAt(l - 1) == '_'){
+                            System.out.println("No character has in that position.");
+                            // || scr.charAt(r - 1) == '_'
+                        }
+                        else{
+                            System.out.println("Enter the corresponding number of the position you want to place the letter in");
+                            int s = sc.nextInt();
+                            if (sch.charAt(s - 1) == '~'){
+                                System.out.println("Character has already been placed.");
+
+                            }
+                            else{
+                                sch.charAt(s-1) = scr.charAt(r-1);
+                                System.out.println("Letter has been shifted.");
+                                flag1 = false;
+                            }
+                        }
+                        break;
+                        default:
+                        System.out.println("Error");
+                        break;
+                    }
+                }
+
             }
         }
     }
+
 }
