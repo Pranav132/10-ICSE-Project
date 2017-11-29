@@ -13,6 +13,7 @@ class a {
         String shuffledauctionitem = "Penguin Lamp Keyboard";
         String auctionitem = "Lamp Penguin Keyboard";
         String scrne = "", schne = "";
+        char j =' ';
         for(int i = 0; i<shuffledauctionitem.length(); i++){
             if (i<9){
                 System.out.print("0"+(i + 1) + " ");
@@ -67,10 +68,11 @@ class a {
         System.out.println();
         System.out.println();
 
-        System.out.println("Enter 1 for choosing letter from anagram, enter 2 for letter from the solution");
-        int anac = sc.nextInt();
         boolean flag1 = true;
-        while(flag1 = true){
+        while(flag1 == true){
+            System.out.println("Enter 1 for choosing letter from anagram, enter 2 for letter from the solution");
+            int anac = sc.nextInt();
+
             switch(anac){
                 case 1: 
                 System.out.println("Enter the corresponding number of the letter you want to move from the anagram");
@@ -83,13 +85,31 @@ class a {
                 else{
                     System.out.println("Enter the corresponding number of the position you want to place the letter in");
                     int q = sc.nextInt();
-                    if (scr.charAt(q - 1) == '_'){
+                    if (scr.charAt(q - 1) != '_'){
                         System.out.println("Character has already been placed.");
 
                     }
                     else{
-                        char j = sch.charAt(r-1);
-                        scr.charAt(q-1) = j;
+                        //char j = sch.charAt(r-1);
+                        //scr.charAt(q-1) = j;
+                        for (int i = 0; i <scr.length(); i ++){
+                            if(i == (q-1)){
+                                j = sch.charAt(r-1);
+                            }
+                            else{
+                                j = scr.charAt(i);
+                            }
+                            scrne+=j;
+                        }
+                        for(int i = 0; i <sch.length(); i++){
+                            if(i == (q-1)){
+                                j = '~';
+                            }
+                            else{
+                                j = sch.charAt(i);
+                            }
+                            schne+=j;
+                        }
                         System.out.println("Letter has been shifted.");
                         flag1 = false;
                     }
@@ -100,19 +120,38 @@ class a {
 
                 int l = sc.nextInt();
                 if (scr.charAt(l - 1) == '_'){
-                    System.out.println("No character has in that position.");
+                    System.out.println("No character is in that position.");
                     // || scr.charAt(r - 1) == '_'
                 }
                 else{
                     System.out.println("Enter the corresponding number of the position you want to place the letter in");
                     int s = sc.nextInt();
-                    if (sch.charAt(s - 1) == '~'){
+                    if (sch.charAt(s - 1) != '~'){
                         System.out.println("Character has already been placed.");
 
                     }
                     else{
-                        sch.charAt(s-1) = scr.charAt(r-1);
+                        //sch.charAt(s-1) = scr.charAt(r-1);
+                        for (int i = 0; i <scr.length(); i ++){
+                            if(i == (s-1)){
+                                j = scr.charAt(l-1);
+                            }
+                            else{
+                                j = sch.charAt(i);
+                            }
+                            schne+=j;
+                        }
+                        for(int i = 0; i <sch.length(); i++){
+                            if(i == (s-1)){
+                                j = '_';
+                            }
+                            else{
+                                j = scr.charAt(i);
+                            }
+                            scrne+=j;
+                        }
                         System.out.println("Letter has been shifted.");
+
                         flag1 = false;
                     }
                 }
@@ -123,7 +162,15 @@ class a {
             }
         }
         boolean flag3 = true;
-        while(flag3 = true){
+        System.out.println(sch);
+        System.out.println(scr);
+        while(flag3 == true){
+            System.out.println("Next Loop");
+            scr = scrne;
+            sch = schne;
+
+            System.out.println("sch" + sch);
+            System.out.println(scr);
             if (scr.equals(auctionitem) == true){
                 System.out.println("You have solved the anagram");
                 flag3 = false;
@@ -131,9 +178,6 @@ class a {
             }
             else{
 
-                scr = scrne;
-                sch = schne;
-                
                 for(int i = 0; i<shuffledauctionitem.length(); i++){
                     if (i<9){
                         System.out.print("0"+(i + 1) + " ");
@@ -149,7 +193,7 @@ class a {
 
                     if((dd <= 90 && dd >= 65)  ||dd == 32){
                         System.out.print("~  ");
-    
+
                     }
                     else{
                         System.out.print(sch.charAt(a) + "  " );
@@ -178,11 +222,10 @@ class a {
                     }
                     else{
                         System.out.print("_  ");
- 
+
                     }
 
                 }
-
 
                 System.out.println("Enter 1 for choosing letter from anagram, enter 2 for letter from the solution");
                 int anac1 = sc.nextInt();
@@ -200,13 +243,31 @@ class a {
                         else{
                             System.out.println("Enter the corresponding number of the position you want to place the letter in");
                             int q = sc.nextInt();
-                            if (scr.charAt(q - 1) == '_'){
+                            if (scr.charAt(q - 1) != '_'){
                                 System.out.println("Character has already been placed.");
 
                             }
                             else{
-                                char j = sch.charAt(r-1);
-                                scr.charAt(q-1) = j;
+                                //char j = sch.charAt(r-1);
+                                //scr.charAt(q-1) = j;
+                                for (int i = 0; i <scr.length(); i ++){
+                                    if(i == (q-1)){
+                                        j = sch.charAt(r-1);
+                                    }
+                                    else{
+                                        j = scr.charAt(i);
+                                    }
+                                    scrne+=j;
+                                }
+                                for(int i = 0; i <sch.length(); i++){
+                                    if(i == (q-1)){
+                                        j = '~';
+                                    }
+                                    else{
+                                        j = sch.charAt(i);
+                                    }
+                                    schne+=j;
+                                }
                                 System.out.println("Letter has been shifted.");
                                 flag2 = false;
                             }
@@ -223,12 +284,30 @@ class a {
                         else{
                             System.out.println("Enter the corresponding number of the position you want to place the letter in");
                             int s = sc.nextInt();
-                            if (sch.charAt(s - 1) == '~'){
+                            if (sch.charAt(s - 1) != '~'){
                                 System.out.println("Character has already been placed.");
 
                             }
                             else{
-                                sch.charAt(s-1) = scr.charAt(r-1);
+                                //sch.charAt(s-1) = scr.charAt(r-1);
+                                for (int i = 0; i <scr.length(); i ++){
+                                    if(i == (s-1)){
+                                        j = scr.charAt(l-1);
+                                    }
+                                    else{
+                                        j = sch.charAt(i);
+                                    }
+                                    schne+=j;
+                                }
+                                for(int i = 0; i <sch.length(); i++){
+                                    if(i == (s-1)){
+                                        j = '_';
+                                    }
+                                    else{
+                                        j = scr.charAt(i);
+                                    }
+                                    scrne+= j;
+                                }
                                 System.out.println("Letter has been shifted.");
                                 flag1 = false;
                             }
