@@ -158,19 +158,19 @@ class a {
                 break;
                 default:
                 System.out.println("Error");
+                flag1 = false;
                 break;
             }
         }
         boolean flag3 = true;
-        System.out.println(sch);
-        System.out.println(scr);
+
         while(flag3 == true){
-            System.out.println("Next Loop");
+
             scr = scrne;
             sch = schne;
+            schne = "";
+            scrne = "";
 
-            System.out.println("sch" + sch);
-            System.out.println(scr);
             if (scr.equals(auctionitem) == true){
                 System.out.println("You have solved the anagram");
                 flag3 = false;
@@ -214,23 +214,25 @@ class a {
                 System.out.println();
 
                 for(int i = 0; i<shuffledauctionitem.length(); i++){
-                    int cc = scr.charAt(i);
+                    /*int cc = scr.charAt(i);
 
                     if((cc <= 90 && cc >= 65)  || cc == 32){
-                        System.out.print(scr.charAt(i) + "  ");
+                    System.out.print(scr.charAt(i) + "  ");
 
                     }
                     else{
-                        System.out.print("_  ");
+                    System.out.print("_  ");
 
-                    }
-
+                    }*/
+                    System.out.print(scr.charAt(i) + "  ");
                 }
+                System.out.println();
+                System.out.println();
 
                 System.out.println("Enter 1 for choosing letter from anagram, enter 2 for letter from the solution");
                 int anac1 = sc.nextInt();
                 boolean flag2 = true;
-                while(flag2 = true){
+                while(flag2 == true){
                     switch(anac1){
                         case 1: 
                         System.out.println("Enter the corresponding number of the letter you want to move from the anagram");
@@ -258,15 +260,17 @@ class a {
                                         j = scr.charAt(i);
                                     }
                                     scrne+=j;
+                                
                                 }
                                 for(int i = 0; i <sch.length(); i++){
-                                    if(i == (q-1)){
+                                    if(i == (r-1)){
                                         j = '~';
                                     }
                                     else{
                                         j = sch.charAt(i);
                                     }
                                     schne+=j;
+
                                 }
                                 System.out.println("Letter has been shifted.");
                                 flag2 = false;
@@ -278,7 +282,7 @@ class a {
 
                         int l = sc.nextInt();
                         if (scr.charAt(l - 1) == '_'){
-                            System.out.println("No character has in that position.");
+                            System.out.println("No character is in that position.");
                             // || scr.charAt(r - 1) == '_'
                         }
                         else{
@@ -300,25 +304,26 @@ class a {
                                     schne+=j;
                                 }
                                 for(int i = 0; i <sch.length(); i++){
-                                    if(i == (s-1)){
+                                    if(i == (l-1)){
                                         j = '_';
                                     }
                                     else{
                                         j = scr.charAt(i);
                                     }
-                                    scrne+= j;
+                                    scrne+=j;
                                 }
                                 System.out.println("Letter has been shifted.");
-                                flag1 = false;
+
+                                flag2 = false;
                             }
                         }
                         break;
                         default:
                         System.out.println("Error");
+                        flag2 = false;
                         break;
                     }
                 }
-
             }
         }
     }
