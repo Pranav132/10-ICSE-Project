@@ -102,7 +102,7 @@ class a {
                             scrne+=j;
                         }
                         for(int i = 0; i <sch.length(); i++){
-                            if(i == (q-1)){
+                            if(i == (r-1)){
                                 j = '~';
                             }
                             else{
@@ -142,7 +142,7 @@ class a {
                             schne+=j;
                         }
                         for(int i = 0; i <sch.length(); i++){
-                            if(i == (s-1)){
+                            if(i == (l-1)){
                                 j = '_';
                             }
                             else{
@@ -171,8 +171,10 @@ class a {
             schne = "";
             scrne = "";
 
+
             if (scr.equals(auctionitem) == true){
                 System.out.println("You have solved the anagram");
+                System.out.println("The item was " + scr);
                 flag3 = false;
                 //range
             }
@@ -189,16 +191,16 @@ class a {
                 System.out.println();
                 for (int a = 0; a<shuffledauctionitem.length();a++){
 
-                    int dd = sch.charAt(a);
+                    //int dd = sch.charAt(a);
 
-                    if((dd <= 90 && dd >= 65)  ||dd == 32){
-                        System.out.print("~  ");
+                    //if((dd <= 90 && dd >= 65)  ||dd == 32){
+                    // System.out.print("~  ");
 
-                    }
-                    else{
-                        System.out.print(sch.charAt(a) + "  " );
+                    //}
+                    // else{
+                    System.out.print(sch.charAt(a) + "  " );
 
-                    }
+                    // }
 
                 }
                 System.out.println();
@@ -229,10 +231,10 @@ class a {
                 System.out.println();
                 System.out.println();
 
-                System.out.println("Enter 1 for choosing letter from anagram, enter 2 for letter from the solution");
-                int anac1 = sc.nextInt();
                 boolean flag2 = true;
                 while(flag2 == true){
+                    System.out.println("Enter 1 for choosing letter from anagram, enter 2 for letter from the solution");
+                    int anac1 = sc.nextInt();
                     switch(anac1){
                         case 1: 
                         System.out.println("Enter the corresponding number of the letter you want to move from the anagram");
@@ -260,7 +262,7 @@ class a {
                                         j = scr.charAt(i);
                                     }
                                     scrne+=j;
-                                
+
                                 }
                                 for(int i = 0; i <sch.length(); i++){
                                     if(i == (r-1)){

@@ -5,6 +5,7 @@ class Auction_game{
     static double bal = 1000.0;
     static String inventory[] = {"","","","",""};
     static int inventorycost[]={0,0,0,0,0};
+    static int choo = 0;
     public static void main(String args [])
     {
         System.out.println("Welcome to the game. Please enter your name");
@@ -16,49 +17,72 @@ class Auction_game{
 
     static void Menu()
     {
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println("Welcome to the main menu");
-        System.out.println("You can - ");
-        System.out.println("1)read about the rules");
-        System.out.println("2)Choose a blind auction to participate in ");
-        System.out.println("3)Sell items ");
-        System.out.println("4)Look at your inventory ");
-        System.out.println("5)or quit the game");
-        System.out.println(" Type the number of the section you want to go to ");
-        int menu1 = sc.nextInt();
-        boolean menuloop = true;
-        while(menuloop == true){
-            switch(menu1)
-            {
-                case 1:
-                call_rules();
-                menuloop = false;
-                break;
-                case 2:
-                if(inventory[4] != ""){
-                    System.out.println("You already have 5 items. Please sell one before trying to enter an auction.");
-                    Menu();
-                }
-                else{
-                    call_auction();
-                }
-                menuloop = false;
-                break;
-                case 3:
-                call_sell_items();
-                menuloop = false;
-                break;
-                case 4:
-                call_inventory();
-                menuloop = false;
-                break;
-                case 5:
-                call_quit();
-                menuloop = false;
-                break;
+        int sellcount = 0;
+        for (int i = 0; i < 5; i ++){
 
+            if(inventory[i] == ""){
+                sellcount++;
+            }
+        }
+        if(sellcount == 5 && bal < 200){
+            System.out.println("You have lost the game as you have nothing in your inventory and your balance is below 200.");
+            call_quit();
+        }
+        else if (bal > 20000){
+            System.out.println("You have won the game as your balance is above 20000.");
+        }
+        else{
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println("Welcome to the main menu");
+            System.out.println("You can - ");
+            System.out.println("1)read about the rules");
+            System.out.println("2)Choose a blind auction to participate in ");
+            System.out.println("3)Sell items ");
+            System.out.println("4)Look at your inventory ");
+            System.out.println("5)or quit the game");
+            System.out.println(" Type the number of the section you want to go to ");
+            int menu1 = sc.nextInt();
+            boolean menuloop = true;
+            while(menuloop == true){
+                switch(menu1)
+                {
+                    case 1:
+                    call_rules();
+                    menuloop = false;
+                    break;
+                    case 2:
+                    int invvcount = 0;
+                    for (int i = 0; i < 5; i ++){
+
+                        if(inventory[i] != ""){
+                            invvcount++;
+                        }
+                    }
+                    if(invvcount == 5){
+                        System.out.println("You already have 5 items. Please sell one before trying to enter an auction.");
+                        Menu();
+                    }
+                    else{
+                        call_auction();
+                    }
+                    menuloop = false;
+                    break;
+                    case 3:
+                    call_sell_items();
+                    menuloop = false;
+                    break;
+                    case 4:
+                    call_inventory();
+                    menuloop = false;
+                    break;
+                    case 5:
+                    call_quit();
+                    menuloop = false;
+                    break;
+
+                }
             }
         }
     }
@@ -123,7 +147,30 @@ class Auction_game{
             auctionitemcost = costs10k[random];
         }
         shuffledauctionitem = shuffle(auctionitem);
-        System.out.println("The anagram of the item in auction is '" + shuffledauctionitem + "'. The item you have won will be revealed to you after the auction.");
+        System.out.println("The anagram of the item in auction is '" + shuffledauctionitem + "'. The item you have won will be revealed to you either after you win the auction.");
+        System.out.println("or, after you solve the anagram of the name of the item");
+        boolean flaggg = true;
+        while(flaggg == true){
+
+            System.out.println("Enter 1 to join the auction blind, or enter 2 to solve the Anagram of the name and the enter the auction");
+            choo = sc.nextInt();
+            if (choo == 1 || choo == 2){
+                flaggg = false;
+            }
+            else{
+                System.out.println("Error");
+            }
+        }
+        switch(choo){
+            case 1:
+            System.out.println("You are entering the auction blind.");
+            break;
+            case 2:
+            System.out.println("You will now try to solve the anagram.");
+            anagramsolving(shuffledauctionitem, auctionitemcost, auctionitem);
+            break;
+
+        }
         double minimumrandom = Math.random();
         int minimumbid = (int)((Math.random()  * auctionitemcost));
         System.out.println("Minimum bid is " + minimumbid);
@@ -192,6 +239,7 @@ class Auction_game{
                 }
             }
         }
+
     }
 
     static String shuffle(String auctionitem){
@@ -206,14 +254,337 @@ class Auction_game{
         return shuffledvalue;
     }
 
-    static void anagramsolving(String shuffledauctionitem){
+    static void anagramsolving(String y, int c, String b){
 
+        Scanner sc = new Scanner(System.in);
+        System.out.println("You will now begin to try and figure out the name of the item that is being auctioned");
+        System.out.println("To choose the letter you want place, type it's corresponding number");
+        System.out.println("After that, type the position of where you want to place the number");
+        System.out.println("A few clues:");
+        System.out.println("Capital letters will always be at the start of words");
+        System.out.println("The number of spaces in the shuffled phrase will determine the number of words in the name of the item.");
+        System.out.println("Remember, a space is also counted as a character. The spaces have been entered in their correct placed for you. In it's place");
+        System.out.println("The characters which have been placed have been replaced by a '~'");
+        String scrne = "", schne = "";
+        char j =' ';
+        for(int i = 0; i<y.length(); i++){
+            if (i<9){
+                System.out.print("0"+(i + 1) + " ");
+            }
+            else{
+                System.out.print(i + 1 + " ");
+            }
+        }
+        System.out.println();
+        char qq;
+        String sch ="";
+        for (int a = 0; a<y.length();a++){
+
+            int dd = y.charAt(a);
+
+            if((dd <= 90 && dd >= 65)  ||dd == 32){
+                System.out.print("~  ");
+                qq = '~';
+            }
+            else{
+                System.out.print(y.charAt(a) + "  " );
+                qq = y.charAt(a);
+            }
+            sch+= qq;
+        }
+        System.out.println();
+        System.out.println();
+        for(int i = 0; i<y.length(); i++){
+            if (i<9){
+                System.out.print("0"+(i + 1) + " ");
+            }
+            else{
+                System.out.print(i + 1 + " ");
+            }
+        }
+        System.out.println();
+        char pp;
+        String scr ="";
+        for(int i = 0; i<y.length(); i++){
+            int cc = b.charAt(i);
+
+            if((cc <= 90 && cc >= 65)  || cc == 32){
+                System.out.print(b.charAt(i) + "  ");
+                pp  = b.charAt(i);
+            }
+            else{
+                System.out.print("_  ");
+                pp = '_';
+            }
+            scr+=pp;
+        }
+        System.out.println();
+        System.out.println();
+
+        boolean flag1 = true;
+        while(flag1 == true){
+            System.out.println("Enter 1 for choosing letter from anagram, enter 2 for letter from the solution");
+            int anac = sc.nextInt();
+
+            switch(anac){
+                case 1: 
+                System.out.println("Enter the corresponding number of the letter you want to move from the anagram");
+
+                int r = sc.nextInt();
+                if (sch.charAt(r - 1) == '~'){
+                    System.out.println("Character has already been placed.");
+                    // || scr.charAt(r - 1) == '_'
+                }
+                else{
+                    System.out.println("Enter the corresponding number of the position you want to place the letter in");
+                    int q = sc.nextInt();
+                    if (scr.charAt(q - 1) != '_'){
+                        System.out.println("Character has already been placed.");
+
+                    }
+                    else{
+                        //char j = sch.charAt(r-1);
+                        //scr.charAt(q-1) = j;
+                        for (int i = 0; i <scr.length(); i ++){
+                            if(i == (q-1)){
+                                j = sch.charAt(r-1);
+                            }
+                            else{
+                                j = scr.charAt(i);
+                            }
+                            scrne+=j;
+                        }
+                        for(int i = 0; i <sch.length(); i++){
+                            if(i == (r-1)){
+                                j = '~';
+                            }
+                            else{
+                                j = sch.charAt(i);
+                            }
+                            schne+=j;
+                        }
+                        System.out.println("Letter has been shifted.");
+                        flag1 = false;
+                    }
+                }
+                break;
+                case 2:
+                System.out.println("Enter the corresponding number of the letter you want to move from the solution");
+
+                int l = sc.nextInt();
+                if (scr.charAt(l - 1) == '_'){
+                    System.out.println("No character is in that position.");
+                    // || scr.charAt(r - 1) == '_'
+                }
+                else{
+                    System.out.println("Enter the corresponding number of the position you want to place the letter in");
+                    int s = sc.nextInt();
+                    if (sch.charAt(s - 1) != '~'){
+                        System.out.println("Character has already been placed.");
+
+                    }
+                    else{
+                        //sch.charAt(s-1) = scr.charAt(r-1);
+                        for (int i = 0; i <scr.length(); i ++){
+                            if(i == (s-1)){
+                                j = scr.charAt(l-1);
+                            }
+                            else{
+                                j = sch.charAt(i);
+                            }
+                            schne+=j;
+                        }
+                        for(int i = 0; i <sch.length(); i++){
+                            if(i == (l-1)){
+                                j = '_';
+                            }
+                            else{
+                                j = scr.charAt(i);
+                            }
+                            scrne+=j;
+                        }
+                        System.out.println("Letter has been shifted.");
+
+                        flag1 = false;
+                    }
+                }
+                break;
+                default:
+                System.out.println("Error");
+                break;
+            }
+        }
+        boolean flag3 = true;
+
+        while(flag3 == true){
+
+            scr = scrne;
+            sch = schne;
+            schne = "";
+            scrne = "";
+
+            if (scr.equals(b) == true){
+                System.out.println("You have solved the anagram");
+                System.out.println("The item was " + scr);
+                int min = c - 500;
+                int max = c + 500;
+                System.out.println("The value of the item is " + min + " to " + max);
+                flag3 = false;
+                //range
+            }
+            else{
+
+                for(int i = 0; i<y.length(); i++){
+                    if (i<9){
+                        System.out.print("0"+(i + 1) + " ");
+                    }
+                    else{
+                        System.out.print(i + 1 + " ");
+                    }
+                }
+                System.out.println();
+                for (int a = 0; a<y.length();a++){
+
+                    //int dd = sch.charAt(a);
+
+                    //if((dd <= 90 && dd >= 65)  ||dd == 32){
+                    // System.out.print("~  ");
+
+                    //}
+                    // else{
+                    System.out.print(sch.charAt(a) + "  " );
+
+                    // }
+
+                }
+                System.out.println();
+                System.out.println();
+                for(int i = 0; i<y.length(); i++){
+                    if (i<9){
+                        System.out.print("0"+(i + 1) + " ");
+                    }
+                    else{
+                        System.out.print(i + 1 + " ");
+                    }
+                }
+                System.out.println();
+
+                for(int i = 0; i<y.length(); i++){
+                    /*int cc = scr.charAt(i);
+
+                    if((cc <= 90 && cc >= 65)  || cc == 32){
+                    System.out.print(scr.charAt(i) + "  ");
+
+                    }
+                    else{
+                    System.out.print("_  ");
+
+                    }*/
+                    System.out.print(scr.charAt(i) + "  ");
+                }
+                System.out.println();
+                System.out.println();
+
+                boolean flag2 = true;
+                while(flag2 == true){
+                    System.out.println("Enter 1 for choosing letter from anagram, enter 2 for letter from the solution");
+                    int anac1 = sc.nextInt();
+                    switch(anac1){
+                        case 1: 
+                        System.out.println("Enter the corresponding number of the letter you want to move from the anagram");
+
+                        int r = sc.nextInt();
+                        if (sch.charAt(r - 1) == '~'){
+                            System.out.println("Character has already been placed.");
+                            // || scr.charAt(r - 1) == '_'
+                        }
+                        else{
+                            System.out.println("Enter the corresponding number of the position you want to place the letter in");
+                            int q = sc.nextInt();
+                            if (scr.charAt(q - 1) != '_'){
+                                System.out.println("Character has already been placed.");
+
+                            }
+                            else{
+                                //char j = sch.charAt(r-1);
+                                //scr.charAt(q-1) = j;
+                                for (int i = 0; i <scr.length(); i ++){
+                                    if(i == (q-1)){
+                                        j = sch.charAt(r-1);
+                                    }
+                                    else{
+                                        j = scr.charAt(i);
+                                    }
+                                    scrne+=j;
+
+                                }
+                                for(int i = 0; i <sch.length(); i++){
+                                    if(i == (r-1)){
+                                        j = '~';
+                                    }
+                                    else{
+                                        j = sch.charAt(i);
+                                    }
+                                    schne+=j;
+
+                                }
+                                System.out.println("Letter has been shifted.");
+                                flag2 = false;
+                            }
+                        }
+                        break;
+                        case 2:
+                        System.out.println("Enter the corresponding number of the letter you want to move from the solution");
+
+                        int l = sc.nextInt();
+                        if (scr.charAt(l - 1) == '_'){
+                            System.out.println("No character is in that position.");
+                            // || scr.charAt(r - 1) == '_'
+                        }
+                        else{
+                            System.out.println("Enter the corresponding number of the position you want to place the letter in");
+                            int s = sc.nextInt();
+                            if (sch.charAt(s - 1) != '~'){
+                                System.out.println("Character has already been placed.");
+
+                            }
+                            else{
+                                //sch.charAt(s-1) = scr.charAt(r-1);
+                                for (int i = 0; i <scr.length(); i ++){
+                                    if(i == (s-1)){
+                                        j = scr.charAt(l-1);
+                                    }
+                                    else{
+                                        j = sch.charAt(i);
+                                    }
+                                    schne+=j;
+                                }
+                                for(int i = 0; i <sch.length(); i++){
+                                    if(i == (l-1)){
+                                        j = '_';
+                                    }
+                                    else{
+                                        j = scr.charAt(i);
+                                    }
+                                    scrne+=j;
+                                }
+                                System.out.println("Letter has been shifted.");
+
+                                flag2 = false;
+                            }
+                        }
+                        break;
+                        default:
+                        System.out.println("Error");
+                        break;
+                    }
+                }
+            }
+        }
     }
 
     static void call_sell_items()
-
     {
-
         int sellcount = 0;
         for (int i = 0; i < 5; i ++){
 
