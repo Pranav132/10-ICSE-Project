@@ -1,35 +1,58 @@
 import java.util.*;
 
 class Auction_game{
-    static Scanner sc = new Scanner(System.in);
     static double bal = 1000.0;
     static String inventory[] = {"","","","",""};
     static int inventorycost[]={0,0,0,0,0};
     static int choo = 0;
     public static void main(String args [])
     {
-        System.out.println("Welcome to the game. Please enter your name");
-        String name = sc.nextLine();
-        System.out.println("Welcome " + name + ". Your balance is " + bal);
+        String name = "";
+        Scanner sc = new Scanner(System.in);
+        while (true){
+
+            System.out.println("Welcome to the game 'Auction Land'. Please enter your name. It should not be longer than 20 characters");
+            name = sc.nextLine();
+            name = name.trim();
+
+            int count = 0;
+            for(int i = 0; i < name.length(); i++){
+                if((name.charAt(i) >= 97 && name.charAt(i) <= 122) || (name.charAt(i) <= 90 && name.charAt(i) >= 65) || name.charAt(i) == 32){
+                    count++;
+                }
+            }
+            if(name.length() <= 20 && count == name.length()){
+                break;
+            }
+            else if(name.length() > 20){
+                System.out.println("Name is too long");
+            }
+            else if(count != name.length()){
+                System.out.println("Enter only letters");
+            }
+        }
+
+        System.out.println("Welcome " + name + ". Your balance is " + bal + " rupees");
         Menu();
 
     }    
 
     static void Menu()
     {
-        int sellcount = 0;
+
+        int count = 0;
         for (int i = 0; i < 5; i ++){
 
             if(inventory[i] == ""){
-                sellcount++;
+                count++;
             }
-        }
-        if(sellcount == 5 && bal < 200){
-            System.out.println("You have lost the game as you have nothing in your inventory and your balance is below 200.");
+        } 
+        if(count == 5 && bal < 200){
+            System.out.println("You have lost the game as you have nothing in your inventory and your balance is below 200 rupees.");
             call_quit();
         }
         else if (bal > 20000){
-            System.out.println("You have won the game as your balance is above 20000.");
+            System.out.println("You have won the game as your balance is above 20000 rupees.");
         }
         else{
             System.out.println();
@@ -41,11 +64,38 @@ class Auction_game{
             System.out.println("2)Choose a blind auction to participate in ");
             System.out.println("3)Sell items ");
             System.out.println("4)Look at your inventory ");
-            System.out.println("5)or quit the game");
-            System.out.println(" Type the number of the section you want to go to ");
-            int menu1 = sc.nextInt();
+            System.out.println("5)or quit the game"); 
+            int menu1 = 0;
+            boolean flaggg = true;
+            while(flaggg == true)
+            {
+
+                Scanner sc = new Scanner(System.in);            
+                try
+                {
+                    System.out.println(" Type the number of the section you want to go to ");
+
+                    menu1 = sc.nextInt();
+                }
+                catch (Exception e)
+                {
+                    sc.nextLine(); 
+                    System.out.println("Enter only integers");
+                }
+                finally{
+                    sc.close();
+                }
+                if(menu1> 0 && menu1 < 6){
+                    flaggg = false;
+                }
+                else{
+                    System.out.println("Error");
+                }
+            }
+
             boolean menuloop = true;
-            while(menuloop == true){
+            while(menuloop == true)
+            {
                 switch(menu1)
                 {
                     case 1:
@@ -104,6 +154,7 @@ class Auction_game{
 
     static void call_auction()
     {
+
         boolean flag = true;
         String auctionitem="";
         int auctionitemcost = 0;
@@ -125,6 +176,7 @@ class Auction_game{
         int costs5k[] ={4, 2500, 3750, 4500, 4999, 2999};
         String items10k[] = {"x", "Car Tires", "RC Drone", "PSP", "HD Monitor", "Crystal Vase"};
         int costs10k[] ={4, 7999, 6500, 5999, 8750, 9999};
+
         int random = (int)( Math.random() * 5 + 1);
         if (bal <= 500){
             auctionitem = itemsbelow500[random];
@@ -147,13 +199,26 @@ class Auction_game{
             auctionitemcost = costs10k[random];
         }
         shuffledauctionitem = shuffle(auctionitem);
-        System.out.println("The anagram of the item in auction is '" + shuffledauctionitem + "'. The item you have won will be revealed to you either after you win the auction.");
-        System.out.println("or, after you solve the anagram of the name of the item");
+        System.out.println("The anagram of the item in auction is '" + shuffledauctionitem + "'. The item you have won will be revealed to you either after you win the auction or, after you solve the anagram of the name of the item.");
         boolean flaggg = true;
-        while(flaggg == true){
+        while(flaggg == true)
+        {
 
-            System.out.println("Enter 1 to join the auction blind, or enter 2 to solve the Anagram of the name and the enter the auction");
-            choo = sc.nextInt();
+            Scanner sc = new Scanner(System.in);            
+            try
+            {
+                System.out.println("Enter 1 to join the auction blind, or enter 2 to solve the Anagram of the name and the enter the auction");
+                choo = sc.nextInt();
+            }
+            catch (Exception e)
+            {
+                sc.nextLine(); 
+                System.out.println("Enter only integers");
+            }
+            finally{
+                sc.close();
+            }
+
             if (choo == 1 || choo == 2){
                 flaggg = false;
             }
@@ -161,6 +226,7 @@ class Auction_game{
                 System.out.println("Error");
             }
         }
+
         switch(choo){
             case 1:
             System.out.println("You are entering the auction blind.");
@@ -178,15 +244,36 @@ class Auction_game{
         int bid = 0;
         int counterbid = 0 , r;
         int auctionbid = (int)((Math.random() * auctionitemcost) + (Math.random() * (bal - auctionitemcost)));
+        int sum = 0;
+        while (flag == true)
+        {
 
-        while (flag == true){
+            System.out.println("Balance is currently " + bal + " rupees.");
+            while(true){
+                Scanner sc = new Scanner(System.in);
+                try{
+                    System.out.println("Your current bid is " + bid + ". How much more do you want to bid?");
+                    sum = sc.nextInt();
+                }
+                catch (Exception e)
+                {
+                    sc.nextLine(); 
+                    System.out.println("Enter only integers");
+                }
+                finally{
+                    sc.close();
+                }
+                if(sum<=bal){
+                    break;
+                }
+                else{
+                    System.out.println("Error");
+                }
+            }
 
-            System.out.println("Balance is currently " + bal);
-            System.out.println("Your current bid is " + bid + ". How much more do you want to bid?");
-            int sum = sc.nextInt();
             bid += sum;
             if(bid != 0 && bid <= counterbid || bid < minimumbid){
-                System.out.println("Bid cannot be the same as or lower than counterbid. Neither can it be less than the minimumbid. Please try again.");
+                System.out.println("Bid cannot be the same as or lower than counterbid. Neither can it be less than the minimum bid. Please try again.");
                 bid -=sum;
             }
             else{
@@ -256,7 +343,7 @@ class Auction_game{
 
     static void anagramsolving(String y, int c, String b){
 
-        Scanner sc = new Scanner(System.in);
+        //Scanner sc = new Scanner(System.in);
         System.out.println("You will now begin to try and figure out the name of the item that is being auctioned");
         System.out.println("To choose the letter you want place, type it's corresponding number");
         System.out.println("After that, type the position of where you want to place the number");
@@ -320,24 +407,88 @@ class Auction_game{
         }
         System.out.println();
         System.out.println();
-
+        int anac = 0;
         boolean flag1 = true;
         while(flag1 == true){
-            System.out.println("Enter 1 for choosing letter from anagram, enter 2 for letter from the solution");
-            int anac = sc.nextInt();
+
+            while(true){
+                Scanner sc = new Scanner(System.in);
+                try{
+                    System.out.println("Enter 1 for choosing letter from anagram, enter 2 for letter from the solution");
+                    anac = sc.nextInt();
+                }
+                catch (Exception e)
+                {
+                    sc.nextLine(); 
+                    System.out.println("Enter only integers");
+                }
+                finally{
+                    sc.close();
+                }
+                if(anac == 1 || anac == 2){
+                    break;
+                }
+                else{
+                    System.out.println("Error");
+                }
+            }
 
             switch(anac){
-                case 1: 
-                System.out.println("Enter the corresponding number of the letter you want to move from the anagram");
 
-                int r = sc.nextInt();
+                case 1:
+                int r = 0;
+                while(true){
+                    Scanner sc = new Scanner(System.in);
+                    try{
+                        System.out.println("Enter the corresponding number of the letter you want to move from the anagram");
+
+                        r = sc.nextInt();
+                    }
+                    catch (Exception e)
+                    {
+                        sc.nextLine(); 
+                        System.out.println("Enter only integers");
+                    }
+                    finally{
+                        sc.close();
+                    }
+                    if(r <= sch.length()){
+                        break;
+                    }
+                    else{
+                        System.out.println("Error");
+                    }
+                }
+
                 if (sch.charAt(r - 1) == '~'){
                     System.out.println("Character has already been placed.");
                     // || scr.charAt(r - 1) == '_'
                 }
                 else{
-                    System.out.println("Enter the corresponding number of the position you want to place the letter in");
-                    int q = sc.nextInt();
+
+                    int q = 0;
+                    while(true){
+                        Scanner sc = new Scanner(System.in);
+                        try{
+                            System.out.println("Enter the corresponding number of the position you want to place the letter in");
+                            q = sc.nextInt();
+                        }
+                        catch (Exception e)
+                        {
+                            sc.nextLine(); 
+                            System.out.println("Enter only integers");
+                        }
+                        finally{
+                            sc.close();
+                        }
+                        if(q <= scr.length()){
+                            break;
+                        }
+                        else{
+                            System.out.println("Error");
+                        }
+                    }
+
                     if (scr.charAt(q - 1) != '_'){
                         System.out.println("Character has already been placed.");
 
@@ -369,16 +520,58 @@ class Auction_game{
                 }
                 break;
                 case 2:
-                System.out.println("Enter the corresponding number of the letter you want to move from the solution");
+                int l = 0;
+                while(true){
+                    Scanner sc = new Scanner(System.in);
+                    try{
+                        System.out.println("Enter the corresponding number of the letter you want to move from the solution");
 
-                int l = sc.nextInt();
+                        l = sc.nextInt();
+                    }
+                    catch (Exception e)
+                    {
+                        sc.nextLine(); 
+                        System.out.println("Enter only integers");
+                    }
+                    finally{
+                        sc.close();
+                    }
+                    if(l <= scr.length()){
+                        break;
+                    }
+                    else{
+                        System.out.println("Error");
+                    }
+                }
+
                 if (scr.charAt(l - 1) == '_'){
                     System.out.println("No character is in that position.");
                     // || scr.charAt(r - 1) == '_'
                 }
                 else{
-                    System.out.println("Enter the corresponding number of the position you want to place the letter in");
-                    int s = sc.nextInt();
+                    int s = 0;
+                    while(true){
+                        Scanner sc = new Scanner(System.in);
+                        try{
+                            System.out.println("Enter the corresponding number of the position you want to place the letter in");
+                            s = sc.nextInt();
+                        }
+                        catch (Exception e)
+                        {
+                            sc.nextLine(); 
+                            System.out.println("Enter only integers");
+                        }
+                        finally{
+                            sc.close();
+                        }
+                        if(s <= sch.length()){
+                            break;
+                        }
+                        else{
+                            System.out.println("Error");
+                        }
+                    }
+
                     if (sch.charAt(s - 1) != '~'){
                         System.out.println("Character has already been placed.");
 
@@ -487,20 +680,83 @@ class Auction_game{
 
                 boolean flag2 = true;
                 while(flag2 == true){
-                    System.out.println("Enter 1 for choosing letter from anagram, enter 2 for letter from the solution");
-                    int anac1 = sc.nextInt();
+                    int anac1 = 0;
+                    while(true){
+                        Scanner sc = new Scanner(System.in);
+                        try{
+                            System.out.println("Enter 1 for choosing letter from anagram, enter 2 for letter from the solution");
+                            anac1 = sc.nextInt();
+                        }
+                        catch (Exception e)
+                        {
+                            sc.nextLine(); 
+                            System.out.println("Enter only integers");
+                        }
+                        finally{
+                            sc.close();
+                        }
+                        if(anac1 == 1 || anac1 == 2){
+                            break;
+                        }
+                        else{
+                            System.out.println("Error");
+                        }
+                    }
+
                     switch(anac1){
                         case 1: 
-                        System.out.println("Enter the corresponding number of the letter you want to move from the anagram");
+                        int r = 0;
+                        while(true){
+                            Scanner sc = new Scanner(System.in);
+                            try{
+                                System.out.println("Enter the corresponding number of the letter you want to move from the anagram");
 
-                        int r = sc.nextInt();
+                                r = sc.nextInt();
+                            }
+                            catch (Exception e)
+                            {
+                                sc.nextLine(); 
+                                System.out.println("Enter only integers");
+                            }
+                            finally{
+                                sc.close();
+                            }
+                            if(r <= sch.length()){
+                                break;
+                            }
+                            else{
+                                System.out.println("Error");
+                            }
+                        }
+
                         if (sch.charAt(r - 1) == '~'){
                             System.out.println("Character has already been placed.");
                             // || scr.charAt(r - 1) == '_'
                         }
                         else{
-                            System.out.println("Enter the corresponding number of the position you want to place the letter in");
-                            int q = sc.nextInt();
+                            int q = 0;
+                            while(true){
+                                Scanner sc = new Scanner(System.in);
+                                try{
+                                    System.out.println("Enter the corresponding number of the position you want to place the letter in");
+                                    q = sc.nextInt();
+                                }
+                                catch (Exception e)
+                                {
+                                    sc.nextLine(); 
+                                    System.out.println("Enter only integers");
+                                }
+                                finally{
+                                    sc.close();
+                                }
+                                if(q <= scr.length()){
+                                    break;
+                                }
+                                else{
+                                    System.out.println("Error");
+                                }
+                            }
+
                             if (scr.charAt(q - 1) != '_'){
                                 System.out.println("Character has already been placed.");
 
@@ -534,16 +790,59 @@ class Auction_game{
                         }
                         break;
                         case 2:
-                        System.out.println("Enter the corresponding number of the letter you want to move from the solution");
 
-                        int l = sc.nextInt();
+                        int l = 0;
+                        while(true){
+                            Scanner sc = new Scanner(System.in);
+                            try{
+                                System.out.println("Enter the corresponding number of the letter you want to move from the solution");
+
+                                l = sc.nextInt();
+                            }
+                            catch (Exception e)
+                            {
+                                sc.nextLine(); 
+                                System.out.println("Enter only integers");
+                            }
+                            finally{
+                                sc.close();
+                            }
+                            if(l <= scr.length()){
+                                break;
+                            }
+                            else{
+                                System.out.println("Error");
+                            }
+                        }
+
                         if (scr.charAt(l - 1) == '_'){
                             System.out.println("No character is in that position.");
                             // || scr.charAt(r - 1) == '_'
                         }
                         else{
-                            System.out.println("Enter the corresponding number of the position you want to place the letter in");
-                            int s = sc.nextInt();
+                            int s = 0;
+                            while(true){
+                                Scanner sc = new Scanner(System.in);
+                                try{
+                                    System.out.println("Enter the corresponding number of the position you want to place the letter in");
+                                    s = sc.nextInt();
+                                }
+                                catch (Exception e)
+                                {
+                                    sc.nextLine(); 
+                                    System.out.println("Enter only integers");
+                                }
+                                finally{
+                                    sc.close();
+                                }
+                                if(s <= sch.length()){
+                                    break;
+                                }
+                                else{
+                                    System.out.println("Error");
+                                }
+                            }
+
                             if (sch.charAt(s - 1) != '~'){
                                 System.out.println("Character has already been placed.");
 
@@ -585,6 +884,7 @@ class Auction_game{
 
     static void call_sell_items()
     {
+
         int sellcount = 0;
         for (int i = 0; i < 5; i ++){
 
@@ -609,11 +909,28 @@ class Auction_game{
             int aucbid = 0;
             int liveab = 0;
             boolean eh = true;
+            int cs =0;
             while(eh == true){
-
-                System.out.println("Choose the item you want to sell or auction by choosing it's corresponding number.");
-                int cs = sc.nextInt() -1;
-
+                while(true){
+                    Scanner sc = new Scanner(System.in);
+                    try{
+                        System.out.println("Choose the item you want to sell or auction by choosing it's corresponding number.");
+                        cs = sc.nextInt() -1;
+                    }
+                    catch(Exception e){
+                        sc.nextLine();
+                        System.out.println("Enter only integers");
+                    }
+                    finally{
+                        sc.close();
+                    }
+                    if(cs>=1 && cs<= 5){
+                        break;
+                    }
+                    else{
+                        System.out.println("Error");
+                    }
+                }
                 String csitem = inventory[cs];
                 int cscost = inventorycost[cs];
                 if (csitem == ""){
@@ -626,13 +943,33 @@ class Auction_game{
                     System.out.println("You can come back at a later date for a different price, or you can sell the item at this rate now");
                     System.out.println("You can also put this item on the auction block");
                     boolean bool = true;
+                    int sch = 0;
                     while (bool == true){
-                        System.out.println("Enter 1 for selling, 2 for auction, 3 for coming back later");
-                        int sch = sc.nextInt();
+                        while(true){
+                            Scanner sc = new Scanner(System.in);
+                            try{
+                                System.out.println("Enter 1 for selling, 2 for auction, 3 for coming back later");
+                                sch = sc.nextInt();
+                            }
+                            catch(Exception e){
+                                sc.nextLine();
+                                System.out.println("Enter only integers");
+                            }
+                            finally{
+                                sc.close();
+                            }
+                            if(sch == 1 || sch == 2 || sch == 3){
+                                break;
+                            }
+                            else{
+                                System.out.println("Error");
+                            }
+                        }
+
                         if(sch == 1){
                             inventory[cs] = "";
                             bal += cssp;
-                            System.out.println("Item has been sold and your balance is now " + bal);
+                            System.out.println("Item has been sold and your balance is now " + bal + " rupees.");
                             Menu();
                             break;
 
@@ -643,7 +980,7 @@ class Auction_game{
                             System.out.println("The item sold for " + aucbid);
                             inventory[cs] = "";
                             bal += aucbid;
-                            System.out.println("Item has been sold and your balance is now " + bal);
+                            System.out.println("Item has been sold and your balance is now " + bal + " rupees.");
                             Menu();
                             break;
 
@@ -679,7 +1016,7 @@ class Auction_game{
         }
         if (invcount == 5){
             System.out.println("You have nothing in your inventory. You will be returned to the menu.");
-            System.out.println("Your balance is " + bal);
+            System.out.println("Your balance is " + bal + " rupees.");
             Menu();
         }
 
@@ -690,7 +1027,7 @@ class Auction_game{
                 System.out.println(i+1 + ")" + inventory[i]);
 
             }
-            System.out.println("Your balance is " + bal);
+            System.out.println("Your balance is " + bal + " rupees.");
             System.out.println("You will be returned to the menu now");
             Menu();
         }
