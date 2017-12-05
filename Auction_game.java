@@ -9,8 +9,16 @@ class Auction_game{
     {
         String name = "";
         Scanner sc = new Scanner(System.in);
-        while (true){
 
+        System.out.println("      e      888   |  e88~-_  ~~~888~~~ 888   ,88~-_   888b    |   888          e      888b    | 888~-_   ");
+        System.out.println("     d8b     888   | d888   \\    888    888  d888   \\  |Y88b   |   888         d8b     |Y88b   | 888   \\   ");
+        System.out.println("    /Y88b    888   | 8888        888    888 88888    | | Y88b  |   888        /Y88b    | Y88b  | 888    |  ");
+        System.out.println("   /  Y88b   888   | 8888        888    888 88888    | |  Y88b |   888       /  Y88b   |  Y88b | 888    | ");
+        System.out.println("  /____Y88b  Y88   | Y888   /    888    888  Y888   /  |   Y88b|   888      /____Y88b  |   Y88b| 888   / ");
+        System.out.println(" /      Y88b  \"8__/   \"88_-~     888    888   `88_-~   |    Y888   888____ /      Y88b |    Y888 888_-~  ");
+
+        System.out.println("\n\n______________________________________________________________________________________________________________________________\n\n");
+        while (true){
             System.out.println("Welcome to the game 'Auction Land'. Please enter your name. It should not be longer than 20 characters");
             name = sc.nextLine();
             name = name.trim();
@@ -443,6 +451,15 @@ class Auction_game{
                         System.out.println("Enter the corresponding number of the letter you want to move from the anagram");
 
                         r = sc.nextInt();
+
+                        if(r <= sch.length()){
+                            break;
+                        }
+                        else{
+                            System.out.println("Error");
+                            continue;
+                        }
+
                     }
                     catch (Exception e)
                     {
@@ -452,14 +469,8 @@ class Auction_game{
                     finally{
                         sc.close();
                     }
-                    if(r <= sch.length()){
-                        break;
-                    }
-                    else{
-                        System.out.println("Error");
-                    }
-                }
 
+                }
                 if (sch.charAt(r - 1) == '~'){
                     System.out.println("Character has already been placed.");
                     // || scr.charAt(r - 1) == '_'
@@ -470,8 +481,18 @@ class Auction_game{
                     while(true){
                         Scanner sc = new Scanner(System.in);
                         try{
-                            System.out.println("Enter the corresponding number of the position you want to place the letter in");
+                            System.out.println("Enter the corresponding number of the letter you want to move from the anagram");
+
                             q = sc.nextInt();
+
+                            if(q <= scr.length()){
+                                break;
+                            }
+                            else{
+                                System.out.println("Error");
+                                continue;
+                            }
+
                         }
                         catch (Exception e)
                         {
@@ -481,14 +502,8 @@ class Auction_game{
                         finally{
                             sc.close();
                         }
-                        if(q <= scr.length()){
-                            break;
-                        }
-                        else{
-                            System.out.println("Error");
-                        }
-                    }
 
+                    }
                     if (scr.charAt(q - 1) != '_'){
                         System.out.println("Character has already been placed.");
 
@@ -524,9 +539,18 @@ class Auction_game{
                 while(true){
                     Scanner sc = new Scanner(System.in);
                     try{
-                        System.out.println("Enter the corresponding number of the letter you want to move from the solution");
+                        System.out.println("Enter the corresponding number of the letter you want to move from the anagram");
 
                         l = sc.nextInt();
+
+                        if(l <= scr.length()){
+                            break;
+                        }
+                        else{
+                            System.out.println("Error");
+                            continue;
+                        }
+
                     }
                     catch (Exception e)
                     {
@@ -536,12 +560,7 @@ class Auction_game{
                     finally{
                         sc.close();
                     }
-                    if(l <= scr.length()){
-                        break;
-                    }
-                    else{
-                        System.out.println("Error");
-                    }
+
                 }
 
                 if (scr.charAt(l - 1) == '_'){
@@ -553,8 +572,18 @@ class Auction_game{
                     while(true){
                         Scanner sc = new Scanner(System.in);
                         try{
-                            System.out.println("Enter the corresponding number of the position you want to place the letter in");
+                            System.out.println("Enter the corresponding number of the letter you want to move from the anagram");
+
                             s = sc.nextInt();
+
+                            if(s <= sch.length()){
+                                break;
+                            }
+                            else{
+                                System.out.println("Error");
+                                continue;
+                            }
+
                         }
                         catch (Exception e)
                         {
@@ -564,12 +593,7 @@ class Auction_game{
                         finally{
                             sc.close();
                         }
-                        if(s <= sch.length()){
-                            break;
-                        }
-                        else{
-                            System.out.println("Error");
-                        }
+
                     }
 
                     if (sch.charAt(s - 1) != '~'){
@@ -712,6 +736,15 @@ class Auction_game{
                                 System.out.println("Enter the corresponding number of the letter you want to move from the anagram");
 
                                 r = sc.nextInt();
+
+                                if(r <= sch.length()){
+                                    break;
+                                }
+                                else{
+                                    System.out.println("Error");
+                                    continue;
+                                }
+
                             }
                             catch (Exception e)
                             {
@@ -721,12 +754,7 @@ class Auction_game{
                             finally{
                                 sc.close();
                             }
-                            if(r <= sch.length()){
-                                break;
-                            }
-                            else{
-                                System.out.println("Error");
-                            }
+
                         }
 
                         if (sch.charAt(r - 1) == '~'){
@@ -924,7 +952,7 @@ class Auction_game{
                     finally{
                         sc.close();
                     }
-                    if(cs>=1 && cs<= 5){
+                    if(cs>=0 && cs<5){
                         break;
                     }
                     else{
